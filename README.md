@@ -2,9 +2,45 @@
 
 A comprehensive Node.js backend API for managing milk dairy operations with automated accounting, real-time analytics, and complete business intelligence.
 
-## 🚀 Features
+## API Documentation
+
+The API includes comprehensive interactive documentation powered by Swagger UI. Once the server is running, you can access it at:
+
+**🌐 Swagger UI: http://localhost:3000/api-docs**
+
+### Features of the API Documentation:
+- **Interactive Testing**: Test all API endpoints directly from the browser
+- **Authentication Support**: Built-in JWT token authentication
+- **Request/Response Examples**: Complete with sample data
+- **Schema Definitions**: Detailed data models for all entities
+- **Error Response Documentation**: Standard error formats and codes
+
+### Using the API Documentation:
+1. Start the server (`npm start`)
+2. Navigate to http://localhost:3000/api-docs
+3. Authenticate using the login endpoint to get a JWT token
+4. Use the "Authorize" button to add your Bearer token
+5. Test any endpoint with real data
+
+### Quick API Reference:
+
+| Module | Endpoint Base | Description |
+|--------|---------------|-------------|
+| Authentication | `/api/auth` | User registration, login, profile management |
+| Buyers | `/api/buyers` | Customer management and search |
+| Sellers | `/api/sellers` | Supplier management and search |
+| Milk Store | `/api/milkstore` | Milk purchase tracking and reports |
+| Milk Distribution | `/api/milkdistribution` | Milk sales tracking and analytics |
+| Buyer Payments | `/api/buyerpayments` | Customer payment management |
+| Seller Payments | `/api/sellerpayments` | Supplier payment management |
+| Income | `/api/income` | Income tracking and categorization |
+| Expenses | `/api/expense` | Expense management and analytics |
+| Dashboard | `/api/dashboard` | Business analytics and insights |
+
+## Getting Started
 
 ### **Core Business Operations**
+
 - ✅ **Authentication System** - JWT-based user authentication
 - ✅ **Buyer Management** - Manage milk suppliers with full CRUD operations
 - ✅ **Seller Management** - Manage milk distributors with full CRUD operations
@@ -12,17 +48,20 @@ A comprehensive Node.js backend API for managing milk dairy operations with auto
 - ✅ **Milk Sales System** - Record and track milk sales to sellers
 
 ### **Payment Management**
+
 - ✅ **Buyer Payments** - Track payments received from customers
 - ✅ **Seller Payments** - Track payments made to suppliers
 - ✅ **Payment Analytics** - Detailed payment method and type analysis
 
 ### **Automated Financial Management**
+
 - ✅ **Income Tracking** - Automatic income recording via database triggers
 - ✅ **Expense Tracking** - Automatic expense recording via database triggers
 - ✅ **Financial Synchronization** - UPDATE/DELETE operations sync financial records
 - ✅ **Real-time Accounting** - Zero manual financial entry required
 
 ### **Business Intelligence & Analytics**
+
 - ✅ **Financial Dashboard** - Complete profit/loss overview
 - ✅ **Milk Business Analytics** - Purchase vs sales analysis with profit margins
 - ✅ **Payment Analytics** - Payment method and type breakdowns
@@ -48,18 +87,22 @@ A comprehensive Node.js backend API for managing milk dairy operations with auto
 ## ⚡ Quick Start
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/cbrainsolutions2012/Dairybackend.git
 cd Dairybackend
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Environment Setup
+
 Create a `.env` file in the root directory:
+
 ```env
 PORT=3000
 JWT_SECRET=your_jwt_secret_key_here
@@ -70,12 +113,15 @@ DB_NAME=milk_dairy
 ```
 
 ### 4. Database Setup
+
 Run the SQL schema file to create tables and triggers:
+
 ```bash
 mysql -h your_host -u your_user -p your_database < milk_dairy.sql
 ```
 
 ### 5. Start the server
+
 ```bash
 # Development mode
 npm run dev
@@ -89,12 +135,14 @@ The server will start on `http://localhost:3000`
 ## 📚 API Documentation
 
 ### **Authentication**
+
 ```bash
 POST /api/auth/register    # User registration
 POST /api/auth/login       # User login
 ```
 
 ### **Buyer Management**
+
 ```bash
 GET    /api/buyers         # List all buyers
 POST   /api/buyers         # Create new buyer
@@ -105,6 +153,7 @@ GET    /api/buyers/search  # Search buyers
 ```
 
 ### **Seller Management**
+
 ```bash
 GET    /api/sellers        # List all sellers
 POST   /api/sellers        # Create new seller
@@ -115,6 +164,7 @@ GET    /api/sellers/search # Search sellers
 ```
 
 ### **Milk Operations**
+
 ```bash
 # Milk Purchases
 GET    /api/milk-store                    # List all milk purchases
@@ -134,6 +184,7 @@ GET    /api/milk-distribution/search     # Search sales
 ```
 
 ### **Payment Management**
+
 ```bash
 # Buyer Payments (Money Received)
 GET    /api/buyer-payments               # List payments received
@@ -151,6 +202,7 @@ DELETE /api/seller-payments/:id          # Delete payment
 ```
 
 ### **Financial Tracking**
+
 ```bash
 # Income Management
 GET    /api/income                       # View all income
@@ -158,7 +210,7 @@ GET    /api/income/date-range            # Income by date range
 GET    /api/income/categories            # Income by category
 POST   /api/income                       # Manual income entry
 
-# Expense Management  
+# Expense Management
 GET    /api/expense                      # View all expenses
 GET    /api/expense/date-range           # Expenses by date range
 GET    /api/expense/categories           # Expense categories
@@ -166,6 +218,7 @@ POST   /api/expense                      # Manual expense entry
 ```
 
 ### **Analytics & Dashboard**
+
 ```bash
 GET /api/dashboard/financial-overview    # Complete financial summary
 GET /api/dashboard/milk-analytics        # Milk business analysis
@@ -177,6 +230,7 @@ GET /api/dashboard/monthly-trends/:year/:month       # Monthly trends
 ## 🔧 Database Features
 
 ### **Automated Triggers**
+
 The system includes sophisticated database triggers for automatic financial management:
 
 - **Milk Purchase → Expense**: Automatically creates expense when milk is purchased
@@ -187,6 +241,7 @@ The system includes sophisticated database triggers for automatic financial mana
 - **DELETE Synchronization**: Soft deletes financial records when transactions are deleted
 
 ### **Data Integrity**
+
 - Reference-based linking between transactions and financial records
 - Bulletproof UPDATE/DELETE synchronization
 - Soft delete functionality for audit trail preservation
@@ -194,6 +249,7 @@ The system includes sophisticated database triggers for automatic financial mana
 ## 🎯 Example API Usage
 
 ### Record a Milk Purchase
+
 ```bash
 curl -X POST http://localhost:3000/api/milk-store \
   -H "Content-Type: application/json" \
@@ -207,9 +263,11 @@ curl -X POST http://localhost:3000/api/milk-store \
     "fatPercentage": 3.5
   }'
 ```
-*This automatically creates an expense entry in the financial system*
+
+_This automatically creates an expense entry in the financial system_
 
 ### Record a Milk Sale
+
 ```bash
 curl -X POST http://localhost:3000/api/milk-distribution \
   -H "Content-Type: application/json" \
@@ -223,9 +281,11 @@ curl -X POST http://localhost:3000/api/milk-distribution \
     "fatPercentage": 3.5
   }'
 ```
-*This automatically creates an income entry in the financial system*
+
+_This automatically creates an income entry in the financial system_
 
 ### Get Financial Overview
+
 ```bash
 curl -X GET "http://localhost:3000/api/dashboard/financial-overview?startDate=2025-08-01&endDate=2025-08-31" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
@@ -253,16 +313,19 @@ The system provides comprehensive business analytics:
 ## 🚀 Deployment
 
 ### Production Deployment
+
 1. Set up production environment variables
 2. Configure production database
 3. Run database migrations/triggers
 4. Use PM2 or similar for process management:
+
 ```bash
 npm install -g pm2
 pm2 start server.js --name "milk-dairy-api"
 ```
 
 ### Environment Variables
+
 ```env
 NODE_ENV=production
 PORT=3000
