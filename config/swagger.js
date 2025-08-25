@@ -56,7 +56,7 @@ const options = {
         description: "Supplier management and operations",
       },
       {
-        name: "Milk Store", 
+        name: "Milk Store",
         description: "Milk purchase tracking and inventory management",
       },
       {
@@ -68,7 +68,7 @@ const options = {
         description: "Customer payment management and tracking",
       },
       {
-        name: "Seller Payments", 
+        name: "Seller Payments",
         description: "Supplier payment management and tracking",
       },
       {
@@ -77,7 +77,7 @@ const options = {
       },
       {
         name: "Expenses",
-        description: "Cost tracking and expense management", 
+        description: "Cost tracking and expense management",
       },
       {
         name: "Dashboard",
@@ -414,48 +414,6 @@ const options = {
         },
       },
     },
-    tags: [
-      {
-        name: "Authentication",
-        description: "User authentication and authorization",
-      },
-      {
-        name: "Buyers",
-        description: "Customer management and operations",
-      },
-      {
-        name: "Sellers",
-        description: "Supplier management and operations",
-      },
-      {
-        name: "Milk Store", 
-        description: "Milk purchase tracking and inventory management",
-      },
-      {
-        name: "Milk Distribution",
-        description: "Milk sales and distribution operations",
-      },
-      {
-        name: "Buyer Payments",
-        description: "Customer payment management and tracking",
-      },
-      {
-        name: "Seller Payments", 
-        description: "Supplier payment management and tracking",
-      },
-      {
-        name: "Income",
-        description: "Revenue tracking and income management",
-      },
-      {
-        name: "Expenses",
-        description: "Cost tracking and expense management", 
-      },
-      {
-        name: "Dashboard",
-        description: "Analytics, reports and business intelligence",
-      },
-    ],
   },
   apis: ["./routes/*.js", "./controllers/*.js"],
 };
