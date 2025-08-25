@@ -21,14 +21,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Swagger Documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
-  explorer: true,
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: "Milk Dairy API Documentation",
-  swaggerOptions: {
-    persistAuthorization: true,
-  }
-}));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    explorer: true,
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Milk Dairy API Documentation",
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  })
+);
 
 // Routes
 app.get("/", (req, res) => {

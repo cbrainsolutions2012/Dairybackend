@@ -9,6 +9,7 @@ The API includes comprehensive interactive documentation powered by Swagger UI. 
 **🌐 Swagger UI: http://localhost:3000/api-docs**
 
 ### Features of the API Documentation:
+
 - **Interactive Testing**: Test all API endpoints directly from the browser
 - **Authentication Support**: Built-in JWT token authentication
 - **Request/Response Examples**: Complete with sample data
@@ -16,6 +17,7 @@ The API includes comprehensive interactive documentation powered by Swagger UI. 
 - **Error Response Documentation**: Standard error formats and codes
 
 ### Using the API Documentation:
+
 1. Start the server (`npm start`)
 2. Navigate to http://localhost:3000/api-docs
 3. Authenticate using the login endpoint to get a JWT token
@@ -24,18 +26,18 @@ The API includes comprehensive interactive documentation powered by Swagger UI. 
 
 ### Quick API Reference:
 
-| Module | Endpoint Base | Description |
-|--------|---------------|-------------|
-| Authentication | `/api/auth` | User registration, login, profile management |
-| Buyers | `/api/buyers` | Customer management and search |
-| Sellers | `/api/sellers` | Supplier management and search |
-| Milk Store | `/api/milkstore` | Milk purchase tracking and reports |
-| Milk Distribution | `/api/milkdistribution` | Milk sales tracking and analytics |
-| Buyer Payments | `/api/buyerpayments` | Customer payment management |
-| Seller Payments | `/api/sellerpayments` | Supplier payment management |
-| Income | `/api/income` | Income tracking and categorization |
-| Expenses | `/api/expense` | Expense management and analytics |
-| Dashboard | `/api/dashboard` | Business analytics and insights |
+| Module            | Endpoint Base           | Description                                  |
+| ----------------- | ----------------------- | -------------------------------------------- |
+| Authentication    | `/api/auth`             | User registration, login, profile management |
+| Buyers            | `/api/buyers`           | Customer management and search               |
+| Sellers           | `/api/sellers`          | Supplier management and search               |
+| Milk Store        | `/api/milkstore`        | Milk purchase tracking and reports           |
+| Milk Distribution | `/api/milkdistribution` | Milk sales tracking and analytics            |
+| Buyer Payments    | `/api/buyerpayments`    | Customer payment management                  |
+| Seller Payments   | `/api/sellerpayments`   | Supplier payment management                  |
+| Income            | `/api/income`           | Income tracking and categorization           |
+| Expenses          | `/api/expense`          | Expense management and analytics             |
+| Dashboard         | `/api/dashboard`        | Business analytics and insights              |
 
 ## Getting Started
 
