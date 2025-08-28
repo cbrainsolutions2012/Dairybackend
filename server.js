@@ -25,20 +25,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Swagger Documentation
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, {
-    explorer: true,
-    customCss: ".swagger-ui .topbar { display: none }",
-    customSiteTitle: "Milk Dairy API Documentation",
-    swaggerOptions: {
-      persistAuthorization: true,
-      url: null, // Disable the URL input
-    },
-    customCssUrl: null, // Ensure no external CSS URLs
-  })
-);
+app.use("/api-docs", swaggerUi.serve);
+app.get("/api-docs", swaggerUi.setup(specs, {
+  explorer: true,
+  customSiteTitle: "Milk Dairy API Documentation",
+}));
+
+// Swagger JSON endpoint
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(specs);
+});
+
+// Simple API docs test endpoint
+app.get("/docs-test", (req, res) => {
+  res.send(`
+    <html>
+      <head><title>API Docs Test</title></head>
+      <body>
+        <h1>API Documentation Test</h1>
+        <p>If you can see this, the server is working.</p>
+        <p><a href="/api-docs">Go to Swagger UI</a></p>
+        <p><a href="/api-docs/swagger.json">View Swagger JSON</a></p>
+      </body>
+    </html>
+  `);
+});
 
 // Routes
 app.get("/", (req, res) => {
