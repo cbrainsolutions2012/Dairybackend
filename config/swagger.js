@@ -38,9 +38,10 @@ const options = {
         description: "Development server",
       },
       {
-        url: process.env.NODE_ENV === 'production' 
-          ? `https://${process.env.DOMAIN || 'your-domain.com'}` 
-          : "http://localhost:3000",
+        url:
+          process.env.NODE_ENV === "production"
+            ? `https://${process.env.DOMAIN || "your-domain.com"}`
+            : "http://localhost:3000",
         description: "Production server",
       },
     ],

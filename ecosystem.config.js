@@ -18,19 +18,19 @@ module.exports = {
       out_file: "./logs/out.log",
       error_file: "./logs/error.log",
       log_date_format: "YYYY-MM-DD HH:mm:ss Z",
-      
+
       // Auto restart
       watch: false,
       ignore_watch: ["node_modules", "logs"],
-      
+
       // Memory and CPU limits
       max_memory_restart: "500M",
-      
+
       // Restart policy
       autorestart: true,
       max_restarts: 10,
       min_uptime: "10s",
-      
+
       // Health monitoring
       health_check_http_url: "http://localhost:3000/",
       health_check_max_requests: 5,
