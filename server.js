@@ -1,16 +1,18 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { testConnection } = require("./config/database");
 const { swaggerUi, specs } = require("./config/swagger");
 const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
 
-//Load environment variables
+//Load environment variables FIRST
 dotenv.config({
   path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
 });
+
+// Import database AFTER environment variables are loaded
+const { testConnection } = require("./config/database");
 
 const app = express();
 
