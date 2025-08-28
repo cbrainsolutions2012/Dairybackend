@@ -16,27 +16,7 @@ const { testConnection } = require("./config/database");
 
 const app = express();
 
-// Swagger Documentation - Put before other middleware to avoid conflicts
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
-  explorer: true,
-  customSiteTitle: "Milk Dairy API Documentation"
-}));
-
-// Swagger JSON endpoint
-app.get("/api-docs/swagger.json", (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(specs);
-});
-
-// Middleware
-app.use(helmet());
-app.use(compression());
-app.use(morgan("combined"));
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Simple API docs test endpoint
+// Simple test route to verify server is working
 app.get("/docs-test", (req, res) => {
   res.send(`
     <html>
@@ -50,6 +30,34 @@ app.get("/docs-test", (req, res) => {
     </html>
   `);
 });
+
+// Swagger Documentation - Completely isolated
+const swaggerRouter = express.Router();
+swaggerRouter.use('/', swaggerUi.serve);
+swaggerRouter.get('/', swaggerUi.setup(specs, {
+  explorer: true,
+  customSiteTitle: "Milk Dairy API Documentation"
+}));
+app.use('/api-docs', swaggerRouter);
+
+// Swagger JSON endpoint
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(specs);
+});
+
+// Middleware - excluding api-docs from helmet
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api-docs')) {
+    return next();
+  }
+  helmet()(req, res, next);
+});
+app.use(compression());
+app.use(morgan("combined"));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get("/", (req, res) => {
