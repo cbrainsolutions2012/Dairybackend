@@ -43,6 +43,8 @@ app.use('/api-docs', swaggerRouter);
 // Swagger JSON endpoint
 app.get("/api-docs/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
+  console.log("Swagger specs title:", specs.info?.title);
+  console.log("Swagger specs description:", specs.info?.description?.substring(0, 100));
   res.send(specs);
 });
 
@@ -58,6 +60,19 @@ app.use(morgan("combined"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Debug endpoint to check swagger specs
+app.get("/debug/swagger", (req, res) => {
+  res.json({
+    title: specs.info?.title,
+    description: specs.info?.description?.substring(0, 200),
+    version: specs.info?.version,
+    servers: specs.servers,
+    paths: Object.keys(specs.paths || {}),
+    workingDirectory: process.cwd(),
+    nodeEnv: process.env.NODE_ENV
+  });
+});
 
 // Routes
 app.get("/", (req, res) => {
