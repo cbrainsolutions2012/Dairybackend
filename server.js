@@ -8,8 +8,8 @@ const compression = require("compression");
 const morgan = require("morgan");
 
 //Load environment variables
-dotenv.config({ 
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env' 
+dotenv.config({
+  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
 });
 
 const app = express();
