@@ -34,8 +34,8 @@ const options = {
     },
     servers: [
       {
-        url: "http://dairyapi.demotest.in.net",
-        description: "Production server",
+        url: "https://dairyapi.demotest.in.net",
+        description: "Production server (HTTPS)",
       },
       {
         url: "http://localhost:3000",
