@@ -16,19 +16,10 @@ const { testConnection } = require("./config/database");
 
 const app = express();
 
-// Middleware
-app.use(helmet());
-app.use(compression());
-app.use(morgan("combined"));
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Swagger Documentation
-app.use("/api-docs", swaggerUi.serve);
-app.get("/api-docs", swaggerUi.setup(specs, {
+// Swagger Documentation - Put before other middleware to avoid conflicts
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
   explorer: true,
-  customSiteTitle: "Milk Dairy API Documentation",
+  customSiteTitle: "Milk Dairy API Documentation"
 }));
 
 // Swagger JSON endpoint
@@ -36,6 +27,14 @@ app.get("/api-docs/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(specs);
 });
+
+// Middleware
+app.use(helmet());
+app.use(compression());
+app.use(morgan("combined"));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Simple API docs test endpoint
 app.get("/docs-test", (req, res) => {
