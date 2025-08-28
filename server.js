@@ -33,16 +33,39 @@ app.get("/docs-test", (req, res) => {
 
 // Swagger Documentation - Completely isolated
 const swaggerRouter = express.Router();
+
+// Add cache-busting headers for Swagger UI
+swaggerRouter.use('/', (req, res, next) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
+
 swaggerRouter.use('/', swaggerUi.serve);
 swaggerRouter.get('/', swaggerUi.setup(specs, {
   explorer: true,
-  customSiteTitle: "Milk Dairy API Documentation"
+  customSiteTitle: "Milk Dairy API Documentation",
+  swaggerOptions: {
+    url: '/api-docs/swagger.json',
+    tryItOutEnabled: true,
+    requestInterceptor: (request) => {
+      // Ensure requests go to the correct server
+      if (request.url.includes('localhost:3000')) {
+        request.url = request.url.replace('localhost:3000', 'dairyapi.demotest.in.net');
+      }
+      return request;
+    }
+  }
 }));
 app.use('/api-docs', swaggerRouter);
 
 // Swagger JSON endpoint
 app.get("/api-docs/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   console.log("Swagger specs title:", specs.info?.title);
   console.log("Swagger specs description:", specs.info?.description?.substring(0, 100));
   res.send(specs);

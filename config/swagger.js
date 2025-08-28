@@ -34,12 +34,12 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "Development server",
-      },
-      {
         url: "http://dairyapi.demotest.in.net",
         description: "Production server",
+      },
+      {
+        url: "http://localhost:3000",
+        description: "Development server",
       },
     ],
     tags: [
