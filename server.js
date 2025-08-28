@@ -34,7 +34,9 @@ app.use(
     customSiteTitle: "Milk Dairy API Documentation",
     swaggerOptions: {
       persistAuthorization: true,
+      url: null, // Disable the URL input
     },
+    customCssUrl: null, // Ensure no external CSS URLs
   })
 );
 

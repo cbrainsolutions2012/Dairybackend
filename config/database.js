@@ -2,11 +2,11 @@ const { override } = require("joi");
 const mysql = require("mysql2/promise");
 
 // Debug environment variables
-console.log('Database Config Debug:');
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_NAME:', process.env.DB_NAME);
-console.log('DB_PORT:', process.env.DB_PORT);
+console.log("Database Config Debug:");
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_NAME:", process.env.DB_NAME);
+console.log("DB_PORT:", process.env.DB_PORT);
 
 const db = mysql.createPool({
   host: process.env.DB_HOST,
