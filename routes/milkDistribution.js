@@ -8,7 +8,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /api/milkdistribution:
+ * /api/milk-distribution:
  *   post:
  *     summary: Create a new milk sale
  *     tags: [Milk Distribution]
@@ -87,7 +87,7 @@ router.get("/", milkDistributionController.getAllMilkSales);
 
 /**
  * @swagger
- * /api/milkdistribution/search:
+ * /api/milk-distribution/search:
  *   get:
  *     summary: Search milk sales
  *     tags: [Milk Distribution]
@@ -127,7 +127,7 @@ router.get("/search", milkDistributionController.searchMilkSales);
 
 /**
  * @swagger
- * /api/milkdistribution/summary:
+ * /api/milk-distribution/summary:
  *   get:
  *     summary: Get milk sales summary
  *     tags: [Milk Distribution]
@@ -175,7 +175,7 @@ router.get("/summary", milkDistributionController.getMilkSalesSummary);
 
 /**
  * @swagger
- * /api/milkdistribution/profit-analysis:
+ * /api/milk-distribution/profit-analysis:
  *   get:
  *     summary: Get profit analysis
  *     tags: [Milk Distribution]
@@ -223,7 +223,7 @@ router.get("/profit-analysis", milkDistributionController.getProfitAnalysis);
 
 /**
  * @swagger
- * /api/milkdistribution/daily-report/{date}:
+ * /api/milk-distribution/daily-report/{date}:
  *   get:
  *     summary: Get daily milk sales report
  *     tags: [Milk Distribution]
@@ -274,7 +274,7 @@ router.get(
 
 /**
  * @swagger
- * /api/milkdistribution/{id}:
+ * /api/milk-distribution/{id}:
  *   get:
  *     summary: Get milk sale by ID
  *     tags: [Milk Distribution]

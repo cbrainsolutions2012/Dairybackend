@@ -8,7 +8,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /api/milkstore:
+ * /api/milk-store:
  *   post:
  *     summary: Create a new milk purchase
  *     tags: [Milk Store]
@@ -87,7 +87,7 @@ router.get("/", milkStoreController.getAllMilkPurchases);
 
 /**
  * @swagger
- * /api/milkstore/search:
+ * /api/milk-store/search:
  *   get:
  *     summary: Search milk purchases
  *     tags: [Milk Store]
@@ -127,7 +127,7 @@ router.get("/search", milkStoreController.searchMilkPurchases);
 
 /**
  * @swagger
- * /api/milkstore/summary:
+ * /api/milk-store/summary:
  *   get:
  *     summary: Get milk purchase summary
  *     tags: [Milk Store]
@@ -175,7 +175,7 @@ router.get("/summary", milkStoreController.getMilkPurchaseSummary);
 
 /**
  * @swagger
- * /api/milkstore/daily-report/{date}:
+ * /api/milk-store/daily-report/{date}:
  *   get:
  *     summary: Get daily milk report
  *     tags: [Milk Store]
@@ -223,7 +223,7 @@ router.get("/daily-report/:date", milkStoreController.getDailyMilkReport);
 
 /**
  * @swagger
- * /api/milkstore/{id}:
+ * /api/milk-store/{id}:
  *   get:
  *     summary: Get milk purchase by ID
  *     tags: [Milk Store]
