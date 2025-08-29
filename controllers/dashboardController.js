@@ -3,6 +3,64 @@ const Expense = require("../models/Expense");
 const { db } = require("../config/database");
 
 const dashboardController = {
+  // Get simple dashboard summary with counts and monthly totals
+  getDashboardSummary: async (req, res) => {
+    try {
+      // Get current month date range
+      const now = new Date();
+      const startDate = new Date(now.getFullYear(), now.getMonth(), 1)
+        .toISOString()
+        .split("T")[0];
+      const endDate = new Date().toISOString().split("T")[0];
+
+      // Get total buyers count
+      const [buyersCount] = await db.execute(
+        "SELECT COUNT(*) as TotalBuyers FROM Buyers WHERE IsDeleted = 0"
+      );
+
+      // Get total sellers count
+      const [sellersCount] = await db.execute(
+        "SELECT COUNT(*) as TotalSellers FROM Sellers WHERE IsDeleted = 0"
+      );
+
+      // Get this month's total income
+      const monthlyIncome = await Income.getTotalByDateRange(
+        startDate,
+        endDate
+      );
+
+      // Get this month's total expense
+      const monthlyExpense = await Expense.getTotalByDateRange(
+        startDate,
+        endDate
+      );
+
+      const totalIncome = parseFloat(monthlyIncome.TotalIncome) || 0;
+      const totalExpense = parseFloat(monthlyExpense.TotalExpense) || 0;
+
+      res.json({
+        success: true,
+        message: "Dashboard summary retrieved successfully",
+        data: {
+          totalBuyers: buyersCount[0].TotalBuyers,
+          totalSellers: sellersCount[0].TotalSellers,
+          thisMonthIncome: totalIncome,
+          thisMonthExpense: totalExpense,
+          thisMonthProfit: totalIncome - totalExpense,
+          month: now.toLocaleString("default", { month: "long" }),
+          year: now.getFullYear(),
+        },
+      });
+    } catch (error) {
+      console.error("Error getting dashboard summary:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve dashboard summary",
+        error: error.message,
+      });
+    }
+  },
+
   // Get comprehensive financial overview
   getFinancialOverview: async (req, res) => {
     try {

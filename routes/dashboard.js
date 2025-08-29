@@ -8,6 +8,56 @@ router.use(authMiddleware);
 
 /**
  * @swagger
+ * /api/dashboard/summary:
+ *   get:
+ *     summary: Get simple dashboard summary
+ *     tags: [Dashboard]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Get essential dashboard data - total buyers, sellers, and current month income/expense
+ *     responses:
+ *       200:
+ *         description: Dashboard summary data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         totalBuyers:
+ *                           type: integer
+ *                           description: Total number of active buyers
+ *                         totalSellers:
+ *                           type: integer
+ *                           description: Total number of active sellers
+ *                         thisMonthIncome:
+ *                           type: number
+ *                           description: Total income for current month
+ *                         thisMonthExpense:
+ *                           type: number
+ *                           description: Total expense for current month
+ *                         thisMonthProfit:
+ *                           type: number
+ *                           description: Net profit for current month
+ *                         month:
+ *                           type: string
+ *                           description: Current month name
+ *                         year:
+ *                           type: integer
+ *                           description: Current year
+ *       401:
+ *         $ref: '#/components/responses/UnauthorizedError'
+ *       500:
+ *         $ref: '#/components/responses/InternalServerError'
+ */
+router.get("/summary", dashboardController.getDashboardSummary);
+
+/**
+ * @swagger
  * /api/dashboard/financial-overview:
  *   get:
  *     summary: Get financial overview
