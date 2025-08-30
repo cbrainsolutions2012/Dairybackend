@@ -32,9 +32,9 @@ module.exports = {
       min_uptime: "10s",
 
       // Health monitoring
-      health_check_http_url: "http://localhost:3000/",
-      health_check_max_requests: 5,
-      health_check_max_fails: 3,
+      // health_check_http_url: "http://localhost:3000/",
+      // health_check_max_requests: 5,
+      // health_check_max_fails: 3,
     },
   ],
 };
