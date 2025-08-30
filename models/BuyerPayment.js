@@ -65,7 +65,7 @@ const BuyerPayment = {
   // Get all non-deleted payments
   getAll: async () => {
     const [rows] = await db.execute(
-      "SELECT * FROM BuyerPayments WHERE IsDeleted = 0 ORDER BY PaymentDate DESC"
+      "SELECT bp.BuyerPayments, b.FullName AS BuyerName FROM BuyerPayments bp JOIN Buyers b ON bp.BuyerId = b.Id WHERE bp.IsDeleted = 0 ORDER BY bp.PaymentDate DESC"
     );
     return rows;
   },
