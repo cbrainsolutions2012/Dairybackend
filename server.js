@@ -131,10 +131,10 @@ app.use("/api/milk-store", require("./routes/milkStore"));
 app.use("/api/milk-distribution", require("./routes/milkDistribution"));
 
 // Buyer Payment routes
-app.use("/api/buyer-payments", require("./routes/buyerPayments"));
+app.use("/api/buyerpayments", require("./routes/buyerPayments"));
 
 // Seller Payment routes
-app.use("/api/seller-payments", require("./routes/sellerPayments"));
+app.use("/api/sellerpayments", require("./routes/sellerPayments"));
 
 // Income routes
 app.use("/api/income", require("./routes/income"));
