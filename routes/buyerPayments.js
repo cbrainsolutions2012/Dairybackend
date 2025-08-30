@@ -125,170 +125,170 @@ router.get("/", buyerPaymentController.getAllPayments);
 //  */
 // router.get("/search", buyerPaymentController.searchPayments);
 
-/**
- * @swagger
- * /api/buyerpayments/date-range:
- *   get:
- *     summary: Get payments by date range
- *     tags: [Buyer Payments]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: fromDate
- *         required: true
- *         schema:
- *           type: string
- *           format: date
- *         description: Start date (YYYY-MM-DD)
- *       - in: query
- *         name: toDate
- *         required: true
- *         schema:
- *           type: string
- *           format: date
- *         description: End date (YYYY-MM-DD)
- *     responses:
- *       200:
- *         description: Payments in date range
- *         content:
- *           application/json:
- *             schema:
- *               allOf:
- *                 - $ref: '#/components/schemas/SuccessResponse'
- *                 - type: object
- *                   properties:
- *                     data:
- *                       type: object
- *                       properties:
- *                         payments:
- *                           type: array
- *                           items:
- *                             $ref: '#/components/schemas/BuyerPayment'
- */
-router.get("/date-range", buyerPaymentController.getPaymentsByDateRange);
+// /**
+//  * @swagger
+//  * /api/buyerpayments/date-range:
+//  *   get:
+//  *     summary: Get payments by date range
+//  *     tags: [Buyer Payments]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: query
+//  *         name: fromDate
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *           format: date
+//  *         description: Start date (YYYY-MM-DD)
+//  *       - in: query
+//  *         name: toDate
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *           format: date
+//  *         description: End date (YYYY-MM-DD)
+//  *     responses:
+//  *       200:
+//  *         description: Payments in date range
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               allOf:
+//  *                 - $ref: '#/components/schemas/SuccessResponse'
+//  *                 - type: object
+//  *                   properties:
+//  *                     data:
+//  *                       type: object
+//  *                       properties:
+//  *                         payments:
+//  *                           type: array
+//  *                           items:
+//  *                             $ref: '#/components/schemas/BuyerPayment'
+//  */
+// router.get("/date-range", buyerPaymentController.getPaymentsByDateRange);
 
-/**
- * @swagger
- * /api/buyerpayments/daily-report/{date}:
- *   get:
- *     summary: Get daily payment report
- *     tags: [Buyer Payments]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: date
- *         required: true
- *         schema:
- *           type: string
- *           format: date
- *         description: Date for the report (YYYY-MM-DD)
- *     responses:
- *       200:
- *         description: Daily payment report
- *         content:
- *           application/json:
- *             schema:
- *               allOf:
- *                 - $ref: '#/components/schemas/SuccessResponse'
- *                 - type: object
- *                   properties:
- *                     data:
- *                       type: object
- *                       properties:
- *                         report:
- *                           type: object
- *                           properties:
- *                             date:
- *                               type: string
- *                               format: date
- *                             totalAmount:
- *                               type: number
- *                             totalTransactions:
- *                               type: integer
- *                             payments:
- *                               type: array
- *                               items:
- *                                 $ref: '#/components/schemas/BuyerPayment'
- */
-router.get("/daily-report/:date", buyerPaymentController.getDailyReport);
+// /**
+//  * @swagger
+//  * /api/buyerpayments/daily-report/{date}:
+//  *   get:
+//  *     summary: Get daily payment report
+//  *     tags: [Buyer Payments]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: date
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *           format: date
+//  *         description: Date for the report (YYYY-MM-DD)
+//  *     responses:
+//  *       200:
+//  *         description: Daily payment report
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               allOf:
+//  *                 - $ref: '#/components/schemas/SuccessResponse'
+//  *                 - type: object
+//  *                   properties:
+//  *                     data:
+//  *                       type: object
+//  *                       properties:
+//  *                         report:
+//  *                           type: object
+//  *                           properties:
+//  *                             date:
+//  *                               type: string
+//  *                               format: date
+//  *                             totalAmount:
+//  *                               type: number
+//  *                             totalTransactions:
+//  *                               type: integer
+//  *                             payments:
+//  *                               type: array
+//  *                               items:
+//  *                                 $ref: '#/components/schemas/BuyerPayment'
+//  */
+// router.get("/daily-report/:date", buyerPaymentController.getDailyReport);
 
-/**
- * @swagger
- * /api/buyerpayments/buyer/{buyerId}:
- *   get:
- *     summary: Get payments by buyer
- *     tags: [Buyer Payments]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: buyerId
- *         required: true
- *         schema:
- *           type: integer
- *         description: Buyer ID
- *     responses:
- *       200:
- *         description: Buyer payments retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               allOf:
- *                 - $ref: '#/components/schemas/SuccessResponse'
- *                 - type: object
- *                   properties:
- *                     data:
- *                       type: object
- *                       properties:
- *                         payments:
- *                           type: array
- *                           items:
- *                             $ref: '#/components/schemas/BuyerPayment'
- */
-router.get("/buyer/:buyerId", buyerPaymentController.getPaymentsByBuyer);
+// /**
+//  * @swagger
+//  * /api/buyerpayments/buyer/{buyerId}:
+//  *   get:
+//  *     summary: Get payments by buyer
+//  *     tags: [Buyer Payments]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: buyerId
+//  *         required: true
+//  *         schema:
+//  *           type: integer
+//  *         description: Buyer ID
+//  *     responses:
+//  *       200:
+//  *         description: Buyer payments retrieved successfully
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               allOf:
+//  *                 - $ref: '#/components/schemas/SuccessResponse'
+//  *                 - type: object
+//  *                   properties:
+//  *                     data:
+//  *                       type: object
+//  *                       properties:
+//  *                         payments:
+//  *                           type: array
+//  *                           items:
+//  *                             $ref: '#/components/schemas/BuyerPayment'
+//  */
+// router.get("/buyer/:buyerId", buyerPaymentController.getPaymentsByBuyer);
 
-/**
- * @swagger
- * /api/buyerpayments/buyer/{buyerId}/summary:
- *   get:
- *     summary: Get payment summary for buyer
- *     tags: [Buyer Payments]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: buyerId
- *         required: true
- *         schema:
- *           type: integer
- *         description: Buyer ID
- *     responses:
- *       200:
- *         description: Payment summary retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               allOf:
- *                 - $ref: '#/components/schemas/SuccessResponse'
- *                 - type: object
- *                   properties:
- *                     data:
- *                       type: object
- *                       properties:
- *                         summary:
- *                           type: object
- *                           properties:
- *                             totalPayments:
- *                               type: number
- *                             totalTransactions:
- *                               type: integer
- *                             lastPaymentDate:
- *                               type: string
- *                               format: date
- */
-router.get("/buyer/:buyerId/summary", buyerPaymentController.getPaymentSummary);
+// /**
+//  * @swagger
+//  * /api/buyerpayments/buyer/{buyerId}/summary:
+//  *   get:
+//  *     summary: Get payment summary for buyer
+//  *     tags: [Buyer Payments]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: buyerId
+//  *         required: true
+//  *         schema:
+//  *           type: integer
+//  *         description: Buyer ID
+//  *     responses:
+//  *       200:
+//  *         description: Payment summary retrieved successfully
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               allOf:
+//  *                 - $ref: '#/components/schemas/SuccessResponse'
+//  *                 - type: object
+//  *                   properties:
+//  *                     data:
+//  *                       type: object
+//  *                       properties:
+//  *                         summary:
+//  *                           type: object
+//  *                           properties:
+//  *                             totalPayments:
+//  *                               type: number
+//  *                             totalTransactions:
+//  *                               type: integer
+//  *                             lastPaymentDate:
+//  *                               type: string
+//  *                               format: date
+//  */
+// router.get("/buyer/:buyerId/summary", buyerPaymentController.getPaymentSummary);
 
 /**
  * @swagger
