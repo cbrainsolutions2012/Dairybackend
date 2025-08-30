@@ -45,7 +45,7 @@ const SellerPayment = {
   // Get all seller payments
   getAll: async () => {
     const [rows] = await db.execute(
-      "SELECT * FROM SellerPayments WHERE IsDeleted = 0 ORDER BY Date DESC, CreatedAt DESC"
+      "SELECT * FROM SellerPayments WHERE IsDeleted = 0 ORDER BY PaymentDate DESC, CreatedAt DESC"
     );
     return rows;
   },
@@ -100,7 +100,7 @@ const SellerPayment = {
       `SELECT * FROM SellerPayments 
        WHERE IsDeleted = 0 
        AND (SellerName LIKE ? OR PaymentType LIKE ? OR Notes LIKE ? OR TransactionId LIKE ?)
-       ORDER BY Date DESC`,
+       ORDER BY PaymentDate DESC`,
       [
         `%${searchTerm}%`,
         `%${searchTerm}%`,
@@ -114,7 +114,7 @@ const SellerPayment = {
   // Get payments by date range
   getByDateRange: async (startDate, endDate) => {
     const [rows] = await db.execute(
-      "SELECT * FROM SellerPayments WHERE Date BETWEEN ? AND ? AND IsDeleted = 0 ORDER BY Date DESC",
+      "SELECT * FROM SellerPayments WHERE PaymentDate BETWEEN ? AND ? AND IsDeleted = 0 ORDER BY PaymentDate DESC",
       [startDate, endDate]
     );
     return rows;
@@ -144,7 +144,7 @@ const SellerPayment = {
          COUNT(*) OVER() as TotalPayments,
          SUM(PaymentAmount) OVER() as TotalAmount
        FROM SellerPayments sp
-       WHERE DATE(sp.Date) = ? AND sp.IsDeleted = 0
+       WHERE DATE(sp.PaymentDate) = ? AND sp.IsDeleted = 0
        ORDER BY sp.CreatedAt DESC`,
       [date]
     );
