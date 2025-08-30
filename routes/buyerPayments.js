@@ -85,45 +85,45 @@ router.use(authMiddleware);
 router.post("/", buyerPaymentController.createPayment);
 router.get("/", buyerPaymentController.getAllPayments);
 
-/**
- * @swagger
- * /api/buyerpayments/search:
- *   get:
- *     summary: Search buyer payments
- *     tags: [Buyer Payments]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: q
- *         schema:
- *           type: string
- *         description: Search term for buyer name
- *       - in: query
- *         name: date
- *         schema:
- *           type: string
- *           format: date
- *         description: Filter by date (YYYY-MM-DD)
- *     responses:
- *       200:
- *         description: Search results
- *         content:
- *           application/json:
- *             schema:
- *               allOf:
- *                 - $ref: '#/components/schemas/SuccessResponse'
- *                 - type: object
- *                   properties:
- *                     data:
- *                       type: object
- *                       properties:
- *                         payments:
- *                           type: array
- *                           items:
- *                             $ref: '#/components/schemas/BuyerPayment'
- */
-router.get("/search", buyerPaymentController.searchPayments);
+// /**
+//  * @swagger
+//  * /api/buyerpayments/search:
+//  *   get:
+//  *     summary: Search buyer payments
+//  *     tags: [Buyer Payments]
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: query
+//  *         name: q
+//  *         schema:
+//  *           type: string
+//  *         description: Search term for buyer name
+//  *       - in: query
+//  *         name: date
+//  *         schema:
+//  *           type: string
+//  *           format: date
+//  *         description: Filter by date (YYYY-MM-DD)
+//  *     responses:
+//  *       200:
+//  *         description: Search results
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               allOf:
+//  *                 - $ref: '#/components/schemas/SuccessResponse'
+//  *                 - type: object
+//  *                   properties:
+//  *                     data:
+//  *                       type: object
+//  *                       properties:
+//  *                         payments:
+//  *                           type: array
+//  *                           items:
+//  *                             $ref: '#/components/schemas/BuyerPayment'
+//  */
+// router.get("/search", buyerPaymentController.searchPayments);
 
 /**
  * @swagger
