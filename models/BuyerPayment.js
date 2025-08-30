@@ -1,36 +1,61 @@
 const { db } = require("../config/database");
 
 const BuyerPayment = {
-  // Create a new buyer payment
-  create: async ({
-    buyerId,
-    buyerName,
-    paymentAmount,
-    paymentType,
-    paymentMethod,
-    transactionId,
-    notes,
-    date,
-  }) => {
-    const [result] = await db.execute(
-      `INSERT INTO BuyerPayments (BuyerId, BuyerName, PaymentAmount, PaymentType, PaymentMethod, TransactionId, Notes, Date) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        buyerId,
-        buyerName,
-        paymentAmount,
-        paymentType,
-        paymentMethod,
-        transactionId,
-        notes,
-        date,
-      ]
-    );
+  // Create a new payment record
+  create: async (paymentData) => {
+    const {
+      buyerId,
+      buyerName,
+      paymentAmount,
+      paymentDate,
+      paymentType,
+      transactionId,
+      bankName,
+      chequeNumber,
+      ddNumber,
+      referenceNumber,
+      notes,
+    } = paymentData;
+
+    const sql = `
+      INSERT INTO BuyerPayments (
+        BuyerId, BuyerName, PaymentAmount, PaymentDate, PaymentType, TransactionId,
+        BankName, ChequeNumber, DdNumber, ReferenceNumber, Notes
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    const [result] = await db.execute(sql, [
+      buyerId,
+      buyerName,
+      paymentAmount,
+      paymentDate,
+      paymentType,
+      transactionId || null,
+      bankName || null,
+      chequeNumber || null,
+      ddNumber || null,
+      referenceNumber || null,
+      notes || null,
+    ]);
 
     return result.insertId;
   },
 
-  // Find payment by ID
+  // Update an existing payment record
+  update: async (id, updateData) => {
+    const fields = Object.keys(updateData)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+    const values = [...Object.values(updateData), id];
+
+    if (Object.keys(updateData).length === 0) return false;
+
+    const sql = `UPDATE BuyerPayments SET ${fields} WHERE Id = ?`;
+    const [result] = await db.execute(sql, values);
+
+    return result.affectedRows > 0;
+  },
+
+  // Find a single payment by its ID
   findById: async (id) => {
     const [rows] = await db.execute(
       "SELECT * FROM BuyerPayments WHERE Id = ? AND IsDeleted = 0",
@@ -39,113 +64,21 @@ const BuyerPayment = {
     return rows[0];
   },
 
-  // Get all buyer payments
+  // Get all non-deleted payments
   getAll: async () => {
     const [rows] = await db.execute(
-      "SELECT * FROM BuyerPayments WHERE IsDeleted = 0 ORDER BY Date DESC, CreatedAt DESC"
+      "SELECT * FROM BuyerPayments WHERE IsDeleted = 0 ORDER BY PaymentDate DESC"
     );
     return rows;
   },
 
-  // Get payments by buyer
-  getByBuyerId: async (buyerId) => {
-    const [rows] = await db.execute(
-      "SELECT * FROM BuyerPayments WHERE BuyerId = ? AND IsDeleted = 0 ORDER BY Date DESC",
-      [buyerId]
-    );
-    return rows;
-  },
-
-  // Update payment
-  update: async (id, updateData) => {
-    const fields = [];
-    const values = [];
-
-    Object.keys(updateData).forEach((key) => {
-      if (updateData[key] !== undefined) {
-        fields.push(`${key} = ?`);
-        values.push(updateData[key]);
-      }
-    });
-
-    if (fields.length === 0) {
-      throw new Error("No valid fields to update");
-    }
-
-    values.push(id);
-
-    const [result] = await db.execute(
-      `UPDATE BuyerPayments SET ${fields.join(", ")} WHERE Id = ?`,
-      values
-    );
-
-    return result.affectedRows > 0;
-  },
-
-  // Soft delete payment
+  // Soft delete a payment
   delete: async (id) => {
     const [result] = await db.execute(
       "UPDATE BuyerPayments SET IsDeleted = 1 WHERE Id = ?",
       [id]
     );
     return result.affectedRows > 0;
-  },
-
-  // Search payments
-  search: async (searchTerm) => {
-    const [rows] = await db.execute(
-      `SELECT * FROM BuyerPayments 
-       WHERE IsDeleted = 0 
-       AND (BuyerName LIKE ? OR PaymentType LIKE ? OR Notes LIKE ? OR TransactionId LIKE ?)
-       ORDER BY Date DESC`,
-      [
-        `%${searchTerm}%`,
-        `%${searchTerm}%`,
-        `%${searchTerm}%`,
-        `%${searchTerm}%`,
-      ]
-    );
-    return rows;
-  },
-
-  // Get payments by date range
-  getByDateRange: async (startDate, endDate) => {
-    const [rows] = await db.execute(
-      "SELECT * FROM BuyerPayments WHERE Date BETWEEN ? AND ? AND IsDeleted = 0 ORDER BY Date DESC",
-      [startDate, endDate]
-    );
-    return rows;
-  },
-
-  // Get payment summary for a buyer
-  getBuyerPaymentSummary: async (buyerId) => {
-    const [rows] = await db.execute(
-      `SELECT 
-         COUNT(*) as TotalPayments,
-         SUM(PaymentAmount) as TotalAmount,
-         PaymentType,
-         PaymentMethod
-       FROM BuyerPayments 
-       WHERE BuyerId = ? AND IsDeleted = 0 
-       GROUP BY PaymentType, PaymentMethod`,
-      [buyerId]
-    );
-    return rows;
-  },
-
-  // Get daily payment report
-  getDailyReport: async (date) => {
-    const [rows] = await db.execute(
-      `SELECT 
-         bp.*,
-         COUNT(*) OVER() as TotalPayments,
-         SUM(PaymentAmount) OVER() as TotalAmount
-       FROM BuyerPayments bp
-       WHERE DATE(bp.Date) = ? AND bp.IsDeleted = 0
-       ORDER BY bp.CreatedAt DESC`,
-      [date]
-    );
-    return rows;
   },
 };
 
