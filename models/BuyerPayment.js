@@ -5,7 +5,6 @@ const BuyerPayment = {
   create: async (paymentData) => {
     const {
       buyerId,
-      buyerName,
       paymentAmount,
       paymentDate,
       paymentType,
@@ -19,13 +18,12 @@ const BuyerPayment = {
 
     const sql = `
       INSERT INTO BuyerPayments (
-        BuyerId, BuyerName, PaymentAmount, PaymentDate, PaymentType, TransactionId,
+        BuyerId, PaymentAmount, PaymentDate, PaymentType, TransactionId,
         BankName, ChequeNumber, DdNumber, ReferenceNumber, Notes
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const [result] = await db.execute(sql, [
       buyerId,
-      buyerName,
       paymentAmount,
       paymentDate,
       paymentType,

@@ -24,17 +24,8 @@ const buyerPaymentController = {
           .json({ success: false, message: "Required fields are missing." });
       }
 
-      // Fetch the buyer's name to store in the payments table for convenience
-      const buyer = await Buyer.findById(buyerId);
-      if (!buyer) {
-        return res
-          .status(404)
-          .json({ success: false, message: "Buyer not found" });
-      }
-
       const paymentData = {
         buyerId,
-        buyerName: buyer.FullName, // Storing the name
         paymentAmount,
         paymentDate,
         paymentType,
@@ -56,12 +47,10 @@ const buyerPaymentController = {
       });
     } catch (error) {
       console.error("Create Payment Error:", error);
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: "Server error during payment creation.",
-        });
+      res.status(500).json({
+        success: false,
+        message: "Server error during payment creation.",
+      });
     }
   },
 
@@ -73,12 +62,10 @@ const buyerPaymentController = {
 
       const success = await BuyerPayment.update(id, updateData);
       if (!success) {
-        return res
-          .status(404)
-          .json({
-            success: false,
-            message: "Payment not found or no changes made.",
-          });
+        return res.status(404).json({
+          success: false,
+          message: "Payment not found or no changes made.",
+        });
       }
 
       const updatedPayment = await BuyerPayment.findById(id);
@@ -89,12 +76,10 @@ const buyerPaymentController = {
       });
     } catch (error) {
       console.error("Update Payment Error:", error);
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: "Server error during payment update.",
-        });
+      res.status(500).json({
+        success: false,
+        message: "Server error during payment update.",
+      });
     }
   },
 
