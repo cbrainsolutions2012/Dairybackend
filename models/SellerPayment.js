@@ -45,7 +45,7 @@ const SellerPayment = {
   // Get all seller payments
   getAll: async () => {
     const [rows] = await db.execute(
-      "SELECT * FROM SellerPayments WHERE IsDeleted = 0 ORDER BY PaymentDate DESC, CreatedAt DESC"
+      "SELECT sp.*, s.FullName as SellerName FROM SellerPayments sp JOIN Sellers s ON sp.SellerId = s.Id WHERE sp.IsDeleted = 0 ORDER BY sp.PaymentDate DESC"
     );
     return rows;
   },
@@ -53,7 +53,7 @@ const SellerPayment = {
   // Get payments by seller
   getBySellerId: async (sellerId) => {
     const [rows] = await db.execute(
-      "SELECT sp.*, s.FullName as SellerName FROM SellerPayments sp JOIN Sellers s ON sp.SellerId = s.Id WHERE sp.SellerId = ? AND sp.IsDeleted = 0 ORDER BY sp.Date DESC",
+      "SELECT * FROM SellerPayments WHERE SellerId = ? AND IsDeleted = 0 ORDER BY PaymentDate DESC",
       [sellerId]
     );
     return rows;
