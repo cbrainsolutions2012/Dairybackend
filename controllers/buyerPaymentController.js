@@ -1,5 +1,4 @@
 const BuyerPayment = require("../models/BuyerPayment");
-const Buyer = require("../models/Buyer"); // You need this to get buyer's name
 
 const buyerPaymentController = {
   // Create a new payment

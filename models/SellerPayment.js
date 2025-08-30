@@ -2,30 +2,33 @@ const { db } = require("../config/database");
 
 const SellerPayment = {
   // Create a new seller payment
-  create: async ({
-    sellerId,
-    sellerName,
-    paymentAmount,
-    paymentType,
-    paymentMethod,
-    transactionId,
-    notes,
-    date,
-  }) => {
-    const [result] = await db.execute(
-      `INSERT INTO SellerPayments (SellerId, SellerName, PaymentAmount, PaymentType, PaymentMethod, TransactionId, Notes, Date) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        sellerId,
-        sellerName,
-        paymentAmount,
-        paymentType,
-        paymentMethod,
-        transactionId,
-        notes,
-        date,
-      ]
-    );
+  create: async (paymentData) => {
+    const {
+      sellerId,
+      paymentAmount,
+      paymentDate,
+      paymentType,
+      transactionId,
+      bankName,
+      chequeNumber,
+      ddNumber,
+      referenceNumber,
+      notes,
+    } = paymentData;
+    const sql = `INSERT INTO SellerPayments (SellerId, PaymentAmount, PaymentDate, PaymentType, TransactionId, BankName, ChequeNumber, DDNumber, ReferenceNumber, Notes) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const [result] = await db.execute(sql, [
+      sellerId,
+      paymentAmount,
+      paymentDate,
+      paymentType,
+      transactionId,
+      bankName,
+      chequeNumber,
+      ddNumber,
+      referenceNumber,
+      notes,
+    ]);
 
     return result.insertId;
   },
@@ -50,7 +53,7 @@ const SellerPayment = {
   // Get payments by seller
   getBySellerId: async (sellerId) => {
     const [rows] = await db.execute(
-      "SELECT * FROM SellerPayments WHERE SellerId = ? AND IsDeleted = 0 ORDER BY Date DESC",
+      "SELECT sp.*, s.FullName as SellerName FROM SellerPayments sp JOIN Sellers s ON sp.SellerId = s.Id WHERE sp.SellerId = ? AND sp.IsDeleted = 0 ORDER BY sp.Date DESC",
       [sellerId]
     );
     return rows;

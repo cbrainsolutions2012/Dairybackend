@@ -1,5 +1,4 @@
 const SellerPayment = require("../models/SellerPayment");
-const Seller = require("../models/Seller");
 
 const sellerPaymentController = {
   // Create new seller payment
@@ -8,73 +7,40 @@ const sellerPaymentController = {
       const {
         sellerId,
         paymentAmount,
+        paymentDate,
         paymentType,
-        paymentMethod,
         transactionId,
+        bankName,
+        chequeNumber,
+        ddNumber,
+        referenceNumber,
         notes,
-        date,
       } = req.body;
 
       // Validation
-      if (
-        !sellerId ||
-        !paymentAmount ||
-        !paymentType ||
-        !paymentMethod ||
-        !date
-      ) {
+      if (!sellerId || !paymentAmount || !paymentType || !paymentDate) {
         return res.status(400).json({
           success: false,
           message:
-            "Required fields: sellerId, paymentAmount, paymentType, paymentMethod, date",
+            "Required fields: sellerId, paymentAmount, paymentType, paymentDate",
         });
       }
 
-      // Validate payment type
-      if (!["advance", "full", "partial"].includes(paymentType)) {
-        return res.status(400).json({
-          success: false,
-          message: "Payment type must be 'advance', 'full', or 'partial'",
-        });
-      }
-
-      // Validate payment method
-      if (!["cash", "bank_transfer", "upi", "cheque"].includes(paymentMethod)) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Payment method must be 'cash', 'bank_transfer', 'upi', or 'cheque'",
-        });
-      }
-
-      // Validate payment amount
-      if (paymentAmount <= 0) {
-        return res.status(400).json({
-          success: false,
-          message: "Payment amount must be greater than 0",
-        });
-      }
-
-      // Check if seller exists
-      const seller = await Seller.findById(sellerId);
-      if (!seller) {
-        return res.status(404).json({
-          success: false,
-          message: "Seller not found",
-        });
-      }
+      const paymentData = {
+        sellerId,
+        paymentAmount,
+        paymentDate,
+        paymentType,
+        transactionId,
+        bankName,
+        chequeNumber,
+        ddNumber,
+        referenceNumber,
+        notes,
+      };
 
       // Create payment record (this will trigger seller_payment_expense)
-      const paymentId = await SellerPayment.create({
-        sellerId,
-        sellerName: seller.Name,
-        paymentAmount,
-        paymentType,
-        paymentMethod,
-        transactionId: transactionId || null,
-        notes: notes || null,
-        date,
-      });
+      const paymentId = await SellerPayment.create(paymentData);
 
       // Get the created payment
       const payment = await SellerPayment.findById(paymentId);
